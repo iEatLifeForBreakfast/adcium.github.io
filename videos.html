@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Videos</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    .site {
+      background: #f5c800;
+      min-height: 100vh;
+      font-family: 'DM Sans', sans-serif;
+      color: #111;
+      display: flex;
+      flex-direction: column; 
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2.5rem;
+      background: #111;
+      border-bottom: 4px solid #f5c800;
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 30px;
+      letter-spacing: 4px;
+      color: #f5c800;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: #f5c800; }
+    
+    .nav-links a.active { color: #f5f5f5; }
+
+    .checker-stripe {
+      height: 44px;
+      background-image:
+        linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111),
+        linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111);
+      background-position: 0 0, 22px 22px;
+      background-size: 44px 44px;
+      background-color: #fff;
+    }
+
+    .page-header {
+      background: #111;
+      padding: 4rem 2.5rem 3rem;
+      text-align: center;
+    }
+
+    .page-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 6vw, 64px);
+      letter-spacing: 2px;
+      color: #f5f5f5;
+    }
+
+    .page-title .accent { color: #f5c800; }
+
+    .content-wrapper {
+      flex: 1;
+      padding: 4rem 2.5rem;
+      width: 100%;
+    }
+
+    .video-timeline {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-bottom: 2rem;
+    }
+
+    .video-timeline::after {
+      content: '';
+      position: absolute;
+      width: 44px;
+      background-image:
+        linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111),
+        linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111);
+      background-position: 0 0, 22px 22px;
+      background-size: 44px 44px;
+      background-color: #fff;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+
+    .video-box {
+      width: 50%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .video-box:not(:first-child) {
+      margin-top: -100px;
+    }
+
+    .video-box.left {
+      margin-left: 0;
+      padding: 0 3.5rem 0 0;
+    }
+
+    .video-box.right {
+      margin-left: 50%;
+      padding: 0 0 0 3.5rem;
+    }
+
+    .video-content {
+      background: #fff;
+      color: #111;
+      border: 4px solid #111;
+      padding: 2.5rem;
+    }
+
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%; 
+      height: 0;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      border: 4px solid #111;
+      background: #000;
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .video-content h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      letter-spacing: 2px;
+      color: #111;
+      margin-bottom: 0.5rem;
+    }
+
+    .video-content p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.8;
+      color: #333;
+    }
+
+    footer {
+      background: #111;
+      border-top: 4px solid #f5c800;
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 4px;
+      color: #f5c800;
+    }
+
+    .footer-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #444;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+  <div class="site">
+    
+    <nav>
+      <a href="index.html" class="logo">ADCIUM</a>
+      <ul class="nav-links">
+        <li><a href="music.html">Music</a></li>
+        <li><a href="videos.html" class="active">Videos</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="games.html">Games</a></li>
+        <li><a href="people_i_like.html">People I Like</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <div class="checker-stripe"></div>
+
+    <div class="page-header">
+      <h1 class="page-title">SOME OF MY FAVORITE <span class="accent">VIDEOS</span></h1>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="video-timeline">
+        
+        <div class="video-box left">
+          <div class="video-content">
+            <div class="video-container">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/pY-qa3BG01c?si=AfGLAXD1Ka5dltIk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <h2>GioGio's Linguine Adventure</h2>
+            <p>Funny JoJo Parody</p>
+          </div>
+        </div>
+
+        <div class="video-box right">
+          <div class="video-content">
+            <div class="video-container">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/SMZZaym9BvQ?si=OMUo4_6efCLTAxbq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <h2>Singing an F#1</h2>
+            <p>Sounds cool as fuck</p>
+          </div>
+        </div>
+
+        <div class="video-box left">
+          <div class="video-content">
+            <div class="video-container">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/1_fKfnTt9zg?si=CztndQ1GI2rtd2QE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <h2>Lawn Jockey</h2>
+            <p>Randomy funny video that my dad references at times</p>
+          </div>
+        </div>
+		
+		<div class="video-box right">
+          <div class="video-content">
+            <div class="video-container">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/EDuI3VvIDIU?si=fwX2ob0GhCKRi8Ni" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <h2>BRAIDS</h2>
+            <p>Funny Ad</p>
+          </div>
+        </div>
+
+        <div class="video-box left">
+          <div class="video-content">
+            <div class="video-container">
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/_Kmh4BbJPz8?si=f3sQ-z9gOGXbJCDv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <h2>Stop Drinking!! thai ads</h2>
+            <p>Funny video</p>
+          </div>
+        </div>
+		
+		<div class="video-box right">
+          <div class="video-content">
+            <div class="video-container">
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/4zzud3mVld4?si=-BXr4J7lh0xKG1KQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <h2>ok but WHAT IF AVENGERS: ENDGAME PLAYED ALL THE SUPERHERO THEMES</h2>
+            <p>Nice musical change for the endgame scene</p>
+          </div>
+        </div>
+
+        <div class="video-box left">
+          <div class="video-content">
+            <div class="video-container">
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/iUR-zp8mqVs?si=HlNxTVgIMt_VICMf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <h2>When 2 songs are meant for each other</h2>
+            <p>Interesting combination between the songs. Just ignore that the hamilton actor spits frequently</p>
+          </div>
+        </div>
+		
+		<div class="video-box right">
+          <div class="video-content">
+            <div class="video-container">
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/mTRmAhu08pA?si=V-fgkglxCJUbmTAR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <h2>♫ Arrow in the Knee (Skyrim Music Video) | Johnny "WLB" Medlar</h2>
+            <p>Funny skyrim song</p>
+          </div>
+        </div>
+		
+		<div class="video-box left">
+          <div class="video-content">
+            <div class="video-container">
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/8rDDsGpVBB8?si=ceKHSnB1oWiO_Ytk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <h2>Hello, Gordon! (Dr. Coomer's Bumpin' Mix) - WayneRadioTV Remix</h2>
+            <p>Half life but the A.I. is self-aware song</p>
+          </div>
+        </div>
+		
+		<div class="video-box right">
+          <div class="video-content">
+            <div class="video-container">
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/XCXZ4MaYBpw?si=oQxDtCEoVA7goKDm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <h2>MICHAEL MYERS PLAYED HIS OWN SCARY MUSIC</h2>
+            <p>Funny video</p>
+          </div>
+        </div>
+		
+		<div class="video-box left">
+          <div class="video-content">
+            <div class="video-container">
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/PcWnQ7fYzwI?si=G3g2Ba5T3PzVElub" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <h2>I taught an octopus piano (It took 6 months)</h2>
+            <p>What a very smart octopus</p>
+          </div>
+        </div>
+		
+		<div class="video-box right">
+          <div class="video-content">
+            <div class="video-container">
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/sxfxy-3dGz0?si=PVVinUDPutp2XBwy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <h2>Where Is The Comma In "God Rest Ye Merry, Gentlemen" Supposed To Go?</h2>
+            <p>Very good rhymes and also a bit nice if you didn't know</p>
+          </div>
+        </div>
+		
+		<div class="video-box left">
+          <div class="video-content">
+            <div class="video-container">
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/omvD6hw2inw?si=jB501B9L3D_aW45e" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <h2>Red Ball Market Global - Hold Music</h2>
+            <p>Just listen to it</p>
+          </div>
+        </div>
+		
+		<div class="video-box right">
+          <div class="video-content">
+            <div class="video-container">
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/HfGK-f7G9-g?si=3qsxPkmTMOgaRJ8B" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <h2>SCP 096 vs Wonder of U [Storyboard Animatic]</h2>
+            <p>Interesting storyboard. I wish there was a fully animated version</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-logo">ADCIUM</div>
+      <p class="footer-text">adcium.com &nbsp;·&nbsp; all rights reserved</p>
+    </footer>
+
+  </div>
+</body>
+</html>

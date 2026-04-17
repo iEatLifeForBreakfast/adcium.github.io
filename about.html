@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About Me</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    .site {
+      background: #f5c800;
+      min-height: 100vh;
+      font-family: 'DM Sans', sans-serif;
+      color: #111;
+      display: flex;
+      flex-direction: column; 
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2.5rem;
+      background: #111;
+      border-bottom: 4px solid #f5c800;
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 30px;
+      letter-spacing: 4px;
+      color: #f5c800;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: #f5c800; }
+    
+    .nav-links a.active { color: #f5f5f5; }
+
+    .checker-stripe {
+      height: 44px;
+      background-image:
+        linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111),
+        linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111);
+      background-position: 0 0, 22px 22px;
+      background-size: 44px 44px;
+      background-color: #fff;
+    }
+
+    .page-header {
+      background: #111;
+      padding: 4rem 2.5rem 3rem;
+      text-align: center;
+    }
+
+    .page-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 6vw, 64px);
+      letter-spacing: 2px;
+      color: #f5f5f5;
+    }
+
+    .page-title .accent { color: #f5c800; }
+
+    .content-wrapper {
+      flex: 1;
+      padding: 4rem 2.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .bio-section {
+      background: #111;
+      color: #f5f5f5;
+      padding: 3.5rem;
+      border-top: 4px solid #111;
+      margin-bottom: 4rem;
+      transition: border-color 0.3s;
+    }
+
+    .bio-section:hover {
+      border-top-color: #f5c800;
+    }
+
+    .bio-section p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #ccc;
+      margin-bottom: 1.5rem;
+    }
+
+    .bio-section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #111;
+      margin-bottom: 1.5rem;
+      font-weight: bold;
+    }
+
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .showcase-card {
+      background: #111;
+      border: 4px solid #111;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .showcase-card:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 8px 8px 0px #111;
+    }
+
+    .showcase-img-wrapper {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: #1a1a1a;
+      overflow: hidden;
+      border-bottom: 4px solid #111;
+    }
+
+    .showcase-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .image-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #555;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+    }
+
+    .showcase-info {
+      padding: 1.5rem;
+      background: #fff;
+      flex: 1;
+    }
+
+    .showcase-info h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      letter-spacing: 1px;
+      color: #111;
+      margin-bottom: 0.5rem;
+    }
+
+    .showcase-info p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #444;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .social-btn {
+      display: inline-block;
+      background: #111;
+      color: #f5f5f5;
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding: 1.25rem 2.5rem;
+      text-decoration: none;
+      border: 2px solid #111;
+      transition: all 0.15s;
+    }
+
+    .social-btn:hover {
+      background: #f5c800;
+      color: #111;
+      transform: translate(-4px, -4px);
+      box-shadow: 6px 6px 0px #111;
+    }
+
+    footer {
+      background: #111;
+      border-top: 4px solid #f5c800;
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 4px;
+      color: #f5c800;
+    }
+
+    .footer-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #444;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+  <div class="site">
+    
+    <nav>
+      <a href="index.html" class="logo">ADCIUM</a>
+      <ul class="nav-links">
+        <li><a href="music.html">Music</a></li>
+        <li><a href="videos.html">Videos</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="games.html">Games</a></li>
+        <li><a href="people_i_like.html">People I Like</a></li>
+        <li><a href="about.html" class="active">About Me</a></li>
+      </ul>
+    </nav>
+
+    <div class="checker-stripe"></div>
+
+    <div class="page-header">
+      <h1 class="page-title">ABOUT <span class="accent">ME</span></h1>
+    </div>
+
+    <div class="content-wrapper">
+      
+      <div class="bio-section">
+        <p>Hello, Adcium here. I'm not exactly sure why I'm doing this, but I did it anyways!</p>
+        <p>I used to go by Oarange_Knight, The Oldest Historion, and still frequently use I Eat Life For Breakfast! in random places.</p>
+        <p>I like to read, listen to music, and play video games. Since a lot of the things I read require me to sail the seven seas I won't be bringing them up here lol</p>
+      </div>
+
+      <p class="section-label">My Roblox Avatars</p>
+      
+      <div class="showcase-grid">
+        
+      <div class="showcase-card">
+          <div class="showcase-img-wrapper">
+            <img src="media/images/About Me/taxi.webp" alt="Taxi Avatar">
+          </div>
+          <div class="showcase-info">
+            <h3>Taxi Driver</h3>
+            <p>My Roblox Taxi Driver avatar</p>
+          </div>
+        </div>
+        <div class="showcase-card">
+          <div class="showcase-img-wrapper">
+            <img src="media/images/About Me/Hamsa.webp" alt ="Hamsa Avatar">
+          </div>
+          <div class="showcase-info">
+            <h3>Hamsa Avatar</h3>
+            <p>My Roblox Hamsa Avatar</p>
+            <p>Head Accessory made by Wyndelsore</p>
+            <p>Clothing made by unicornandflora</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="section-label" style="margin-top: 4rem;">Socials</p>
+      <div class="social-links">
+        <a href="https://www.youtube.com/@Adcium/featured" target="_blank" class="social-btn">YouTube ↗</a>
+        <a href="https://discord.com/users/527559543866261526" target="_blank" class="social-btn">Discord ↗</a>
+        <a href="https://www.roblox.com/users/334472198/profile" target="_blank" class="social-btn">Roblox ↗</a>
+        <a href="https://steamcommunity.com/id/Adcium/" target="_blank" class="social-btn">Steam ↗</a>
+      </div>
+
+    </div>
+
+    <footer>
+      <div class="footer-logo">ADCIUM</div>
+      <p class="footer-text">adcium.com &nbsp;·&nbsp; all rights reserved</p>
+    </footer>
+
+  </div>
+</body>
+</html>

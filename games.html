@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Games</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    .site {
+      background: #f5c800;
+      min-height: 100vh;
+      font-family: 'DM Sans', sans-serif;
+      color: #111;
+      display: flex;
+      flex-direction: column; 
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2.5rem;
+      background: #111;
+      border-bottom: 4px solid #f5c800;
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 30px;
+      letter-spacing: 4px;
+      color: #f5c800;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: #f5c800; }
+    
+    .nav-links a.active { color: #f5f5f5; }
+
+    .checker-stripe {
+      height: 44px;
+      background-image:
+        linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111),
+        linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111);
+      background-position: 0 0, 22px 22px;
+      background-size: 44px 44px;
+      background-color: #fff;
+    }
+
+    .page-header {
+      background: #111;
+      padding: 4rem 2.5rem 3rem;
+      text-align: center;
+    }
+
+    .page-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 6vw, 64px);
+      letter-spacing: 2px;
+      color: #f5f5f5;
+    }
+
+    .page-title .accent { color: #f5c800; }
+
+    .content-wrapper {
+      flex: 1;
+      padding: 4rem 2.5rem;
+      width: 100%;
+    }
+
+    .bio-section {
+      background: #111;
+      color: #f5f5f5;
+      padding: 3.5rem;
+      border-top: 4px solid #111;
+      margin: 0 auto 4rem auto;
+      max-width: 1000px;
+      transition: border-color 0.3s;
+    }
+
+    .bio-section:hover {
+      border-top-color: #f5c800;
+    }
+
+    .bio-section p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #ccc;
+      margin-bottom: 1.5rem;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .bio-section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .review-timeline {
+      position: relative;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding-bottom: 2rem;
+    }
+
+    .review-timeline::after {
+      content: '';
+      position: absolute;
+      width: 44px;
+      background-image:
+        linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111),
+        linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111);
+      background-position: 0 0, 22px 22px;
+      background-size: 44px 44px;
+      background-color: #fff;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+
+    .review-box {
+      width: 50%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .review-box:not(:first-child) {
+      margin-top: -120px;
+    }
+
+    .review-box.left {
+      margin-left: 0;
+      padding: 0 3.5rem 0 0;
+    }
+
+    .review-box.right {
+      margin-left: 50%;
+      padding: 0 0 0 3.5rem;
+    }
+
+    .review-content {
+      background: #fff;
+      color: #111;
+      border: 4px solid #111;
+      padding: 3rem;
+      min-height: 280px; 
+      display: flex;
+      flex-direction: column;
+    }
+
+    .review-content h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 38px;
+      letter-spacing: 2px;
+      color: #111;
+      margin-bottom: 1rem;
+    }
+
+    .review-content p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.8;
+      color: #333;
+      flex: 1;
+      margin-bottom: 2rem;
+    }
+
+    .review-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+    }
+
+    .review-score {
+      font-family: 'DM Mono', monospace;
+      font-size: 18px;
+      font-weight: 500;
+      color: #111;
+      letter-spacing: -1px;
+    }
+
+    .review-link {
+      background: #f5c800;
+      color: #111;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding: 8px 16px;
+      text-decoration: none;
+      border: 2px solid #111;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .review-link:hover {
+      background: #111;
+      color: #f5c800;
+    }
+
+    footer {
+      background: #111;
+      border-top: 4px solid #f5c800;
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 4px;
+      color: #f5c800;
+    }
+
+    .footer-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #444;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+  <div class="site">
+    
+    <nav>
+      <a href="index.html" class="logo">ADCIUM</a>
+      <ul class="nav-links">
+        <li><a href="music.html">Music</a></li>
+        <li><a href="videos.html">Videos</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="games.html" class="active">Games</a></li>
+        <li><a href="people_i_like.html">People I Like</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <div class="checker-stripe"></div>
+
+    <div class="page-header">
+      <h1 class="page-title">FAVORITE <span class="accent">GAMES</span></h1>
+    </div>
+    
+    <div class="content-wrapper">
+      
+      <div class="bio-section">
+        <p>Disclaimer: Quite a few of these are Roblox games.</p>
+		<p>Also, this is not a top 10 or anything like that. Just some games that were at the top of my head while making this.</p>
+      </div>
+
+      <div class="review-timeline">
+        
+        <div class="review-box left">
+          <div class="review-content">
+            <h2>Skyrim</h2>
+            <p>What can I say? I can't help but love doing whatever I want with the base game, and having an ever growing amount of mods to mess with is a massive cherry on top.</p>
+            <div class="review-footer">
+              <div class="review-score">10/10</div>
+              <a href="https://store.steampowered.com/app/489830/The_Elder_Scrolls_V_Skyrim_Special_Edition/" target="_blank" class="review-link">Link ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-box right">
+          <div class="review-content">
+            <h2>Project JoJo</h2>
+            <p>The best JoJo's Bizarre Adventure game I think I've ever played.</p>
+            <div class="review-footer">
+              <div class="review-score">Hamsa/10</div>
+              <a href="https://www.roblox.com/games/2295122555/Project-JoJo" target="_blank" class="review-link">Link ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-box left">
+          <div class="review-content">
+            <h2>Boku No Roblox</h2>
+            <p>This is mostly here for Nostalgia. I enjoyed playing this a lot back in the day. It's a shame that it's where it is now.</p>
+            <div class="review-footer">
+              <div class="review-score">6/10</div>
+              <a href="https://www.roblox.com/games/1499872953/Boku-No-Roblox" target="_blank" class="review-link">Link ↗</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="review-box right">
+          <div class="review-content">
+            <h2>Monster Madness Survival</h2>
+            <p>A wave defense game where you play with up to 9 other people. There are quite a few characters you can play as. I wish they would update this.</p>
+            <div class="review-footer">
+              <div class="review-score">7/10</div>
+              <a href="https://www.roblox.com/games/2819471801/Monster-Madness-Survival" target="_blank" class="review-link">Link ↗</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="review-box left">
+          <div class="review-content">
+            <h2>HOURS</h2>
+            <p>A fun game with a variety of "Tempos" that the user can use along with a variety of "Hosts"</p>
+            <div class="review-footer">
+              <div class="review-score">9/10</div>
+              <a href="https://www.roblox.com/games/5732973455/HOURS" target="_blank" class="review-link">Link ↗</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="review-box right">
+          <div class="review-content">
+            <h2>The InFamous games</h2>
+            <p>The InFamous games are some of my alltime favorite games ever. I wish that they would release more. I decided to group them together in one card because it saves space.</p>
+            <div class="review-footer">
+              <div class="review-score">10/10</div>
+              <a href="#" target="_blank"</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="review-box left">
+          <div class="review-content">
+            <h2>Bloons Tower Defense Games</h2>
+            <p>I've been playing these games ever since I first had access to the internet. Great fun games.</p>
+            <div class="review-footer">
+              <div class="review-score">10/10</div>
+              <a href="#" target="_blank"</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="review-box right">
+          <div class="review-content">
+            <h2>My Singing Monsters</h2>
+            <p>A great game that I play when I'm in the mood for it.</p>
+            <div class="review-footer">
+              <div class="review-score">10/10</div>
+              <a href="https://store.steampowered.com/app/1419170/My_Singing_Monsters/" target="_blank" class="review-link">Link ↗</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="review-box left">
+          <div class="review-content">
+            <h2>Castle Crashers</h2>
+            <p>A wonderful game that I play every now and then. Definitely worth the price.</p>
+            <div class="review-footer">
+              <div class="review-score">10/10</div>
+              <a href="https://store.steampowered.com/app/204360/Castle_Crashers/" target="_blank" class="review-link">Link ↗</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="review-box right">
+          <div class="review-content">
+            <h2>Manifold Garden</h2>
+            <p>A shorter puzzle game that is replayable and technically has an absurd amount of endings. I beat this one time and definitely will re-visit it once I can't remember most of the game progression by heart.</p>
+            <div class="review-footer">
+              <div class="review-score">10/10</div>
+              <a href="https://store.steampowered.com/app/473950/Manifold_Garden/" target="_blank" class="review-link">Link ↗</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-logo">ADCIUM</div>
+      <p class="footer-text">adcium.com &nbsp;·&nbsp; all rights reserved</p>
+    </footer>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Page Not Found</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    .site {
+      background: #f5c800;
+      min-height: 100vh;
+      font-family: 'DM Sans', sans-serif;
+      color: #111;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2.5rem;
+      background: #111;
+      border-bottom: 4px solid #f5c800;
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 30px;
+      letter-spacing: 4px;
+      color: #f5c800;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: #f5c800; }
+
+    .checker-stripe {
+      height: 44px;
+      background-image:
+        linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111),
+        linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111);
+      background-position: 0 0, 22px 22px;
+      background-size: 44px 44px;
+      background-color: #fff;
+    }
+
+    .content-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2.5rem;
+    }
+
+    .error-box {
+      background: #111;
+      color: #f5f5f5;
+      padding: 4rem;
+      text-align: center;
+      border-top: 4px solid #f5c800;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .error-code {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(80px, 15vw, 120px);
+      line-height: 1;
+      letter-spacing: 4px;
+      color: #f5c800;
+      margin-bottom: 1rem;
+    }
+
+    .error-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      letter-spacing: 2px;
+      margin-bottom: 1.5rem;
+    }
+
+    .error-desc {
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #aaa;
+      margin-bottom: 2.5rem;
+    }
+
+    .home-btn {
+      display: inline-block;
+      background: #f5c800;
+      color: #111;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 1rem 2rem;
+      text-decoration: none;
+      transition: background 0.15s, transform 0.15s;
+    }
+
+    .home-btn:hover {
+      background: #fff;
+      transform: translateY(-2px);
+    }
+
+    footer {
+      background: #111;
+      border-top: 4px solid #f5c800;
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 4px;
+      color: #f5c800;
+    }
+
+    .footer-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #444;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+  <div class="site">
+    
+    <nav>
+      <a href="index.html" class="logo">ADCIUM</a>
+      <ul class="nav-links">
+        <li><a href="music.html">Music</a></li>
+        <li><a href="videos.html">Videos</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="games.html">Games</a></li>
+        <li><a href="people_i_like.html">People I Like</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <div class="checker-stripe"></div>
+
+    <div class="content-wrapper">
+      <div class="error-box">
+        <div class="error-code">404</div>
+        <h1 class="error-title">DEAD END</h1>
+        <p class="error-desc">If you ended up here due to a mistake on my end, contact me.</p>
+		<p class="error-desc">Otherwise, you're a noob</p>
+        <a href="index.html" class="home-btn">Return to Homepage</a>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-logo">ADCIUM</div>
+      <p class="footer-text">adcium.com &nbsp;·&nbsp; all rights reserved</p>
+    </footer>
+
+  </div>
+</body>
+</html>

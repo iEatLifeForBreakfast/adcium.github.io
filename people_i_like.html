@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>People I Like - Adcium</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    .site {
+      background: #f5c800;
+      min-height: 100vh;
+      font-family: 'DM Sans', sans-serif;
+      color: #111;
+      display: flex;
+      flex-direction: column; 
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2.5rem;
+      background: #111;
+      border-bottom: 4px solid #f5c800;
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 30px;
+      letter-spacing: 4px;
+      color: #f5c800;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: #f5c800; }
+    
+    .nav-links a.active { color: #f5f5f5; }
+
+    .checker-stripe {
+      height: 44px;
+      background-image:
+        linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111),
+        linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111);
+      background-position: 0 0, 22px 22px;
+      background-size: 44px 44px;
+      background-color: #fff;
+    }
+
+    .page-header {
+      background: #111;
+      padding: 4rem 2.5rem 3rem;
+      text-align: center;
+    }
+
+    .page-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 6vw, 64px);
+      letter-spacing: 2px;
+      color: #f5f5f5;
+    }
+
+    .page-title .accent { color: #f5c800; }
+
+    .content-wrapper {
+      flex: 1;
+      padding: 4rem 2.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .people-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .person-card {
+      background: #111;
+      border: 4px solid #111;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .person-card:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 8px 8px 0px #111;
+    }
+
+    .person-img-wrapper {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: #1a1a1a;
+      overflow: hidden;
+      border-bottom: 4px solid #111;
+    }
+
+    .person-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .image-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #555;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+    }
+
+    .person-info {
+      padding: 1.5rem;
+      background: #fff;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .person-info h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      letter-spacing: 1px;
+      color: #111;
+      margin-bottom: 0.5rem;
+    }
+
+    .person-info p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #444;
+      flex: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .person-link-wrap {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .person-link {
+      background: #f5c800;
+      color: #111;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding: 8px 16px;
+      text-decoration: none;
+      border: 2px solid #111;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .person-link:hover {
+      background: #111;
+      color: #f5c800;
+    }
+
+    footer {
+      background: #111;
+      border-top: 4px solid #f5c800;
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 4px;
+      color: #f5c800;
+    }
+
+    .footer-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #444;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+  <div class="site">
+    
+    <nav>
+      <a href="index.html" class="logo">ADCIUM</a>
+      <ul class="nav-links">
+        <li><a href="music.html">Music</a></li>
+        <li><a href="videos.html">Videos</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="games.html">Games</a></li>
+        <li><a href="people_i_like.html" class="active">People I Like</a></li>
+        <li><a href="about.html">About Me</a></li>
+      </ul>
+    </nav>
+
+    <div class="checker-stripe"></div>
+
+    <div class="page-header">
+      <h1 class="page-title">PEOPLE I <span class="accent">LIKE</span></h1>
+    </div>
+
+    <div class="content-wrapper">
+      
+      <div class="people-grid">
+        
+        <div class="person-card">
+          <div class="person-img-wrapper">
+            <img src="media/images/People I Like/Blarg.webp" alt ="Blarg">
+          </div>
+          <div class="person-info">
+            <h3>Blarg</h3>
+            <p>Blarg is a YouTuber that I enjoy watching. His jokes aren't for everyone, but he's half canadian. He doesn't mean them.</p>
+            <div class="person-link-wrap">
+              <a href="https://www.youtube.com/@BlargMyShnoople" target="_blank" class="person-link">YouTube ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="person-card">
+          <div class="person-img-wrapper">
+            <img src="media/images/People I Like/JustMeegz.jpg" alt ="JustMeegz">
+          </div>
+          <div class="person-info">
+            <h3>JustMeegz</h3>
+            <p>Meegz is a YouTuber that does a lot of challenge videos that I like watching.</p>
+            <div class="person-link-wrap">
+              <a href="https://www.youtube.com/JustMeegz" target="_blank" class="person-link">Youtube ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="person-card">
+          <div class="person-img-wrapper">
+            <img src="media/images/People I Like/YunaCream.jpg" alt ="YunaCream">
+          </div>
+          <div class="person-info">
+            <h3>YunaCream</h3>
+            <p>A Streamer that is good at video games. Very entertaining to watch.</p>
+            <div class="person-link-wrap">
+              <a href="https://www.youtube.com/@MarshmaIIow/featured" target="_blank" class="person-link">YouTube ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="person-card">
+          <div class="person-img-wrapper">
+            <img src="media/images/People I Like/justan oval.jpg" alt ="Justan Oval">
+          </div>
+          <div class="person-info">
+            <h3>Justan Oval</h3>
+            <p>A musician that makes a lot of funny short songs. My favorites are the shrimp ones.</p>
+            <div class="person-link-wrap">
+              <a href="https://www.youtube.com/@justanoval/featured" target="_blank" class="person-link">Youtube ↗</a>
+            </div>
+          </div>
+        </div>
+		
+		<div class="person-card">
+          <div class="person-img-wrapper">
+            <img src="media/images/People I Like/the stupendium.jpg" alt ="The Stupendium">
+          </div>
+          <div class="person-info">
+            <h3>The Stupendium</h3>
+            <p>A musician that makes funny songs based on games/shows (And sometimes originals).</p>
+            <div class="person-link-wrap">
+              <a href="https://www.youtube.com/@TheStupendium/featured" target="_blank" class="person-link">YouTube ↗</a>
+            </div>
+          </div>
+        </div>
+		
+		<div class="person-card">
+          <div class="person-img-wrapper">
+            <img src="media/images/People I Like/somni.png" alt ="Somni">
+          </div>
+          <div class="person-info">
+            <h3>Somni</h3>
+            <p>A musician that I found randomly one day. I love their covers and originals. They do amazing.</p>
+            <div class="person-link-wrap">
+              <a href="https://www.youtube.com/@S_mni/featured" target="_blank" class="person-link">YouTube ↗</a>
+            </div>
+          </div>
+        </div>
+		
+		<div class="person-card">
+          <div class="person-img-wrapper">
+            <img src="media/images/People I Like/oilyfoot65.jpg" alt ="oilyFoot65">
+          </div>
+          <div class="person-info">
+            <h3>oilyFoot65</h3>
+            <p>An animator that makes videos I can't help but laugh at. I personally really like their content but I know it's not for everyone.</p>
+            <div class="person-link-wrap">
+              <a href="https://www.youtube.com/@oilyFoot65official/featured" target="_blank" class="person-link">YouTube ↗</a>
+            </div>
+          </div>
+        </div>
+		
+		<div class="person-card">
+          <div class="person-img-wrapper">
+            <img src="media/images/People I Like/deliciousjames.jpg" alt ="DeliciousJames">
+          </div>
+          <div class="person-info">
+            <h3>DeliciousJames</h3>
+            <p>2 people that make Pokemon trivia games (and other stuff too). Their content is full of twists and jokes.</p>
+            <div class="person-link-wrap">
+              <a href="https://www.youtube.com/@DeliciousJames/featured" target="_blank" class="person-link">YouTube ↗</a>
+            </div>
+          </div>
+        </div>
+		
+		<div class="person-card">
+          <div class="person-img-wrapper">
+            <img src="media/images/People I Like/MVNØNMARS.jpg" alt ="The Stupendium">
+          </div>
+          <div class="person-info">
+            <h3>MVNØNMARS</h3>
+            <p>A YouTuber that uploads mostly horror game content that I enjoy watching.</p>
+            <div class="person-link-wrap">
+              <a href="https://www.youtube.com/@MvnOnMars/featured" target="_blank" class="person-link">YouTube ↗</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <footer>
+      <div class="footer-logo">ADCIUM</div>
+      <p class="footer-text">adcium.com &nbsp;·&nbsp; all rights reserved</p>
+    </footer>
+
+  </div>
+</body>
+</html>

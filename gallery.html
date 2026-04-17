@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gallery</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    .site {
+      background: #f5c800;
+      min-height: 100vh;
+      font-family: 'DM Sans', sans-serif;
+      color: #111;
+      display: flex;
+      flex-direction: column; 
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2.5rem;
+      background: #111;
+      border-bottom: 4px solid #f5c800;
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 30px;
+      letter-spacing: 4px;
+      color: #f5c800;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: #f5c800; }
+    
+    .nav-links a.active { color: #f5f5f5; }
+
+    .checker-stripe {
+      height: 44px;
+      background-image:
+        linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111),
+        linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111);
+      background-position: 0 0, 22px 22px;
+      background-size: 44px 44px;
+      background-color: #fff;
+    }
+
+    .page-header {
+      background: #111;
+      padding: 4rem 2.5rem 3rem;
+      text-align: center;
+    }
+
+    .page-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 6vw, 64px);
+      letter-spacing: 2px;
+      color: #f5f5f5;
+    }
+
+    .page-title .accent { color: #f5c800; }
+
+    .content-wrapper {
+      flex: 1;
+      padding: 4rem 2.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .carousel-section {
+      margin-bottom: 4rem;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #111;
+      margin-bottom: 1.5rem;
+      font-weight: bold;
+    }
+
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      max-height: 500px;
+      background: #111;
+      border: 4px solid #111;
+      overflow: hidden;
+    }
+
+    .carousel-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.6s ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .carousel-slide.active {
+      opacity: 1;
+      z-index: 1;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; 
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #f5c800;
+      color: #111;
+      border: 4px solid #111;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 2;
+      transition: background 0.15s, transform 0.15s;
+    }
+
+    .carousel-btn:hover {
+      background: #fff;
+      transform: translateY(-50%) scale(1.05);
+    }
+
+    .prev-btn { left: 1.5rem; }
+    .next-btn { right: 1.5rem; }
+
+    .carousel-indicators {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+      z-index: 2;
+    }
+
+    .dot {
+      width: 24px;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .dot.active {
+      background: #f5c800;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      background: #111;
+      border: 4px solid #111;
+      aspect-ratio: 1 / 1; 
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; 
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05); 
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(245, 200, 0, 0.95);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    .gallery-overlay h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 2px;
+      color: #111;
+      margin-bottom: 0.5rem;
+    }
+
+    .gallery-overlay p {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: #333;
+      line-height: 1.5;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      padding-top: 50px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(17, 17, 17, 0.95);
+    }
+
+    .modal-content {
+      margin: auto;
+      display: block;
+      max-width: 90%;
+      max-height: 85vh;
+      border: 4px solid #f5c800;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+      object-fit: contain;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      color: #f5c800;
+      font-size: 50px;
+      font-weight: bold;
+      transition: 0.2s;
+      cursor: pointer;
+      font-family: 'DM Mono', monospace;
+    }
+
+    .close-modal:hover,
+    .close-modal:focus {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    footer {
+      background: #111;
+      border-top: 4px solid #f5c800;
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 4px;
+      color: #f5c800;
+    }
+
+    .footer-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #444;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+  <div class="site">
+    
+    <nav>
+      <a href="index.html" class="logo">ADCIUM</a>
+      <ul class="nav-links">
+        <li><a href="music.html">Music</a></li>
+        <li><a href="videos.html">Videos</a></li>
+        <li><a href="gallery.html" class="active">Gallery</a></li>
+        <li><a href="games.html">Games</a></li>
+        <li><a href="people_i_like.html">People I Like</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <div class="checker-stripe"></div>
+
+    <div class="page-header">
+      <h1 class="page-title">IMAGE <span class="accent">ARCHIVE</span></h1>
+    </div>
+
+    <div class="content-wrapper">
+      
+      <div class="carousel-section">
+        <p class="section-label">Featured Captures</p>
+        <div class="carousel-container">
+          
+          <div class="carousel-slide active">
+            <img src="media/images/Gallery/defeated coat rack.png" alt="Defeated Coat Rack">
+          </div>
+
+          <div class="carousel-slide">
+            <img src="media/images/Gallery/rk'd by meteor.png" alt="RK'd By Meteor">
+          </div>
+
+          <div class="carousel-slide">
+            <img src="media/images/Gallery/ambulance wheelie.png" alt="Ambulance Wheelie">
+          </div>
+
+          <button class="carousel-btn prev-btn" onclick="prevSlide(event)">◀</button>
+          <button class="carousel-btn next-btn" onclick="nextSlide(event)">▶</button>
+
+          <div class="carousel-indicators">
+            <span class="dot active" onclick="goToSlide(0, event)"></span>
+            <span class="dot" onclick="goToSlide(1, event)"></span>
+            <span class="dot" onclick="goToSlide(2, event)"></span>
+          </div>
+
+        </div>
+      </div>
+
+      <p class="section-label">Full Archive</p>
+      <div class="gallery-grid">
+        
+        <div class="gallery-item">
+          <img src="media/images/Gallery/breaker glitch.png" alt="Breaker Glitch">
+          <div class="gallery-overlay">
+            <h3>Breaker Glitch</h3>
+            <p>PJJ CD T Glitch</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="media/images/Gallery/clown th erase.png" alt="Clown Th Erase">
+          <div class="gallery-overlay">
+            <h3>Clown Th Erase</h3>
+            <p>A Fused Clown TH using R</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="media/images/Gallery/trapped tung.png" alt="Trapped Tung">
+          <div class="gallery-overlay">
+            <h3>Trapped Tung</h3>
+            <p>Paying for his sins</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="media/images/Gallery/clown sabbath.png" alt="Clown Sabbath">
+          <div class="gallery-overlay">
+            <h3>Clown Sabbath</h3>
+            <p>The original</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="media/images/Gallery/meme cone.png" alt="Meme Cone">
+          <div class="gallery-overlay">
+            <h3>Meme Cone</h3>
+            <p>Placed meme cone</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="media/images/Gallery/pjj death.png" alt="PJJ Death">
+          <div class="gallery-overlay">
+            <h3>PJJ Death</h3>
+            <p>I died</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="media/images/Gallery/who is this on my friends list.png" alt="Who Is This On My Friends List">
+          <div class="gallery-overlay">
+            <h3>Who Is This</h3>
+            <p>Blox Fruits V Move summons a random person on your friends list</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="media/images/Gallery/flamingo sit.png" alt="Flamingo Sit">
+          <div class="gallery-overlay">
+            <h3>Flamingo Sit</h3>
+            <p>Chillin' on a Flamingo</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="media/images/Gallery/knocked over gravel trailer.png" alt="Knocked Over Gravel Trailer">
+          <div class="gallery-overlay">
+            <h3>Gravel Trailer</h3>
+            <p>A random gravel trailer that was bugged</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="media/images/Gallery/meat master.png" alt="Meat Master">
+          <div class="gallery-overlay">
+            <h3>Meat Master</h3>
+            <p>I am the king of meat</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="media/images/Gallery/pjj cool pose.png" alt="PJJ Cool Pose">
+          <div class="gallery-overlay">
+            <h3>PJJ Cool Pose</h3>
+            <p>CD stopped moving so I moved and did the default pose, turned out alright</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="media/images/Gallery/exotic fusion.png" alt="Exotic Fusion">
+          <div class="gallery-overlay">
+            <h3>Exotic Fusion</h3>
+            <p>Bro is using the most overused fusion in the game and is in a gang called "Exotic fusions"</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-logo">ADCIUM</div>
+      <p class="footer-text">adcium.com &nbsp;·&nbsp; all rights reserved</p>
+    </footer>
+
+  </div>
+
+  <div id="imageModal" class="modal">
+    <span class="close-modal">&times;</span>
+    <img class="modal-content" id="modalImage">
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots = document.querySelectorAll('.dot');
+    let slideInterval;
+
+    function showSlide(index) {
+      slides[currentSlide].classList.remove('active');
+      dots[currentSlide].classList.remove('active');
+      
+      currentSlide = (index + slides.length) % slides.length;
+      
+      slides[currentSlide].classList.add('active');
+      dots[currentSlide].classList.add('active');
+    }
+
+    function nextSlide(event) {
+      if(event) event.stopPropagation();
+      showSlide(currentSlide + 1);
+      resetInterval();
+    }
+
+    function prevSlide(event) {
+      if(event) event.stopPropagation();
+      showSlide(currentSlide - 1);
+      resetInterval(); 
+    }
+
+    function goToSlide(index, event) {
+      if(event) event.stopPropagation();
+      showSlide(index);
+      resetInterval();
+    }
+
+    function startInterval() {
+      slideInterval = setInterval(() => {
+        showSlide(currentSlide + 1);
+      }, 5000);
+    }
+
+    function resetInterval() {
+      clearInterval(slideInterval);
+      startInterval();
+    }
+
+    startInterval();
+
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImage");
+    const closeModalBtn = document.querySelector(".close-modal");
+    
+    const clickables = document.querySelectorAll('.gallery-item, .carousel-slide');
+    
+    clickables.forEach(item => {
+      item.addEventListener('click', function() {
+        const img = this.querySelector('img');
+        if (img) {
+          modal.style.display = "block";
+          modalImg.src = img.src;
+        }
+      });
+    });
+
+    closeModalBtn.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>

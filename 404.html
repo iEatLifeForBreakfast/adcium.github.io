@@ -101,6 +101,10 @@
       font-size: 14px;
       line-height: 1.6;
       color: #aaa;
+      margin-bottom: 1rem;
+    }
+
+    .error-desc:last-of-type {
       margin-bottom: 2.5rem;
     }
 
@@ -149,14 +153,17 @@
 <body>
   <div class="site">
     
-<ul class="nav-links">
-  <li><a href="/music">Music</a></li>
-  <li><a href="/videos">Videos</a></li>
-  <li><a href="/gallery">Gallery</a></li>
-  <li><a href="/games">Games</a></li>
-  <li><a href="/people_i_like">People I Like</a></li>
-  <li><a href="/about">About</a></li>
-</ul>
+    <nav>
+      <a href="/" class="logo">ADCIUM</a>
+      <ul class="nav-links">
+        <li><a href="/music">Music</a></li>
+        <li><a href="/videos">Videos</a></li>
+        <li><a href="/gallery">Gallery</a></li>
+        <li><a href="/games">Games</a></li>
+        <li><a href="/people_i_like">People I Like</a></li>
+        <li><a href="/about">About</a></li>
+      </ul>
+    </nav>
 
     <div class="checker-stripe"></div>
 
@@ -165,8 +172,8 @@
         <div class="error-code">404</div>
         <h1 class="error-title">DEAD END</h1>
         <p class="error-desc">If you ended up here due to a mistake on my end, contact me.</p>
-		<p class="error-desc">Otherwise, you're a noob</p>
-        <a href="index.html" class="home-btn">Return to Homepage</a>
+        <p class="error-desc">Otherwise, you're a noob</p>
+        <a href="/" class="home-btn">Return to Homepage</a>
       </div>
     </div>
 

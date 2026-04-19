@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>People I Like Page 2</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    .site {
+      background: #f5c800;
+      min-height: 100vh;
+      font-family: 'DM Sans', sans-serif;
+      color: #111;
+      display: flex;
+      flex-direction: column; 
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2.5rem;
+      background: #111;
+      border-bottom: 4px solid #f5c800;
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 30px;
+      letter-spacing: 4px;
+      color: #f5c800;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: #f5c800; }
+    
+    .nav-links a.active { color: #f5f5f5; }
+
+    .checker-stripe {
+      height: 44px;
+      background-image:
+        linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111),
+        linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111);
+      background-position: 0 0, 22px 22px;
+      background-size: 44px 44px;
+      background-color: #fff;
+    }
+
+    .page-header {
+      background: #111;
+      padding: 4rem 2.5rem 3rem;
+      text-align: center;
+    }
+
+    .page-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 6vw, 64px);
+      letter-spacing: 2px;
+      color: #f5f5f5;
+    }
+
+    .page-title .accent { color: #f5c800; }
+
+    .content-wrapper {
+      flex: 1;
+      padding: 4rem 2.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .people-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .person-card {
+      background: #111;
+      border: 4px solid #111;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .person-card:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 8px 8px 0px #111;
+    }
+
+    .person-img-wrapper {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: #1a1a1a;
+      overflow: hidden;
+      border-bottom: 4px solid #111;
+    }
+
+    .person-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .image-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #555;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+    }
+
+    .person-info {
+      padding: 1.5rem;
+      background: #fff;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .person-info h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      letter-spacing: 1px;
+      color: #111;
+      margin-bottom: 0.5rem;
+    }
+
+    .person-info p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #444;
+      flex: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .person-link-wrap {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .person-link {
+      background: #f5c800;
+      color: #111;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding: 8px 16px;
+      text-decoration: none;
+      border: 2px solid #111;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .person-link:hover {
+      background: #111;
+      color: #f5c800;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 4rem;
+    }
+
+    .page-link {
+      background: #fff;
+      color: #111;
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+      text-decoration: none;
+      border: 2px solid #111;
+      padding: 8px 16px;
+      transition: background 0.15s, color 0.15s, transform 0.15s;
+    }
+
+    .page-link:hover {
+      background: #f5c800;
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0px #111;
+    }
+
+    .page-link.active {
+      background: #111;
+      color: #f5c800;
+      pointer-events: none;
+    }
+
+    footer {
+      background: #111;
+      border-top: 4px solid #f5c800;
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 4px;
+      color: #f5c800;
+    }
+
+    .footer-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #444;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+  <div class="site">
+    
+    <nav>
+      <a href="/" class="logo">ADCIUM</a>
+      <ul class="nav-links">
+        <li><a href="/music">Music</a></li>
+        <li><a href="/videos">Videos</a></li>
+        <li><a href="/gallery">Gallery</a></li>
+        <li><a href="/games">Games</a></li>
+        <li><a href="/people_i_like" class="active">People I Like</a></li>
+        <li><a href="/about">About</a></li>
+      </ul>
+    </nav>
+
+    <div class="checker-stripe"></div>
+
+    <div class="page-header">
+      <h1 class="page-title">PEOPLE I <span class="accent">LIKE</span></h1>
+    </div>
+
+    <div class="content-wrapper">
+      
+      <div class="people-grid">
+        
+        <div class="person-card">
+          <div class="person-img-wrapper">
+            <img src="media/images/People I Like/page 2/mcnasty.jpg" alt ="McNasty">
+          </div>
+          <div class="person-info">
+            <h3>McNasty</h3>
+            <p>McNasty also makes 'offensive' content that is purely for laughs.</p>
+            <div class="person-link-wrap">
+              <a href="https://www.youtube.com/@McNasty" target="_blank" class="person-link">YouTube ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="person-card">
+          <div class="person-img-wrapper">
+            <img src="media/images/People I Like/page 2/ryan_george.jpg" alt ="Ryan George">
+          </div>
+          <div class="person-info">
+            <h3>Ryan George</h3>
+            <p>Ryan George does skit videos and I love seeing them in my notifications because I know I'm about to laugh.</p>
+            <div class="person-link-wrap">
+              <a href="https://www.youtube.com/@RyanGeorge" target="_blank" class="person-link">Youtube ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="person-card">
+          <div class="person-img-wrapper">
+            <img src="media/images/People I Like/page 2/some_nobody.png" alt ="Some Nobody">
+          </div>
+          <div class="person-info">
+            <h3>Some Nobody</h3>
+            <p>Someone who uploads whenever they want, saying whatever they want. I love their content and am happy I found them.</p>
+            <div class="person-link-wrap">
+              <a href="https://www.youtube.com/@SomeNobodyOnline" target="_blank" class="person-link">YouTube ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="person-card">
+          <div class="person-img-wrapper">
+            <img src="media/images/People I Like/page 2/wayneradiotv.png" alt ="wayneradiotv">
+          </div>
+          <div class="person-info">
+            <h3>wayneradiotv</h3>
+            <p>I don't really know how to describe wayne. They make videos, basically just whole movies.</p>
+            <div class="person-link-wrap">
+              <a href="https://www.youtube.com/@wayneradiotv" target="_blank" class="person-link">Youtube ↗</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="person-card">
+          <div class="person-img-wrapper">
+            <img src="media/images/People I Like/page 2/lovedev.jpg" alt ="LovDev">
+          </div>
+          <div class="person-info">
+            <h3>LovDev</h3>
+            <p>A developer who trolls people in his game. Very entertaining.</p>
+            <div class="person-link-wrap">
+              <a href="https://www.youtube.com/@LovDevYT" target="_blank" class="person-link">YouTube ↗</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="person-card">
+          <div class="person-img-wrapper">
+            <img src="media/images/People I Like/page 2/dankbidoof.jpg" alt ="dankbidoof">
+          </div>
+          <div class="person-info">
+            <h3>dankbidoof</h3>
+            <p>Someone who makes funny parody/joke content around JoJo's Bizarre Adventure.</p>
+            <div class="person-link-wrap">
+              <a href="https://www.youtube.com/@dankbidoof" target="_blank" class="person-link">YouTube ↗</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="person-card">
+          <div class="person-img-wrapper">
+            <img src="media/images/People I Like/page 2/sjb.jpg" alt ="SJB">
+          </div>
+          <div class="person-info">
+            <h3>SJB</h3>
+            <p>A Bloons Tower Defense creator. I like to watch his videos to keep myself updated.</p>
+            <div class="person-link-wrap">
+              <a href="https://www.youtube.com/@SJB2" target="_blank" class="person-link">YouTube ↗</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="person-card">
+          <div class="person-img-wrapper">
+            <img src="media/images/People I Like/page 2/yippee.png" alt ="Yippee! It's the weekend!">
+          </div>
+          <div class="person-info">
+            <h3>Yippee! It's the weekend!</h3>
+            <p>A channel dedicated to uploading a scene from Fairy OddParents every start of the weekend.</p>
+            <div class="person-link-wrap">
+              <a href="https://www.youtube.com/@YippeeItstheweekend" target="_blank" class="person-link">YouTube ↗</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="person-card">
+          <div class="person-img-wrapper">
+            <img src="media/images/People I Like/page 2/mrpancake4343.jpg" alt ="mrpancake4343">
+          </div>
+          <div class="person-info">
+            <h3>mrpancake4343</h3>
+            <p>A very entertaining creator that trolls people.</p>
+            <div class="person-link-wrap">
+              <a href="https://www.youtube.com/@mrpancake4343" target="_blank" class="person-link">YouTube ↗</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pagination">
+        <a href="/people_i_like" class="page-link">1</a>
+        <a href="/people_i_like_2" class="page-link active">2</a>
+        <a href="/people_i_like_3" class="page-link">3</a>
+        <a href="/people_i_like_3" class="page-link">NEXT ↗</a>
+      </div>
+
+    </div>
+
+    <footer>
+      <div class="footer-logo">ADCIUM</div>
+      <p class="footer-text">adcium.com &nbsp;·&nbsp; all rights reserved</p>
+    </footer>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>albertgobanned</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    .site {
+      background: #f5c800;
+      min-height: 100vh;
+      font-family: 'DM Sans', sans-serif;
+      color: #111;
+      display: flex;
+      flex-direction: column; 
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2.5rem;
+      background: #111;
+      border-bottom: 4px solid #f5c800;
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 30px;
+      letter-spacing: 4px;
+      color: #f5c800;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: #f5c800; }
+
+    .checker-stripe {
+      height: 44px;
+      background-image:
+        linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111),
+        linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111);
+      background-position: 0 0, 22px 22px;
+      background-size: 44px 44px;
+      background-color: #fff;
+    }
+
+    .page-header {
+      background: #111;
+      padding: 4rem 2.5rem 3rem;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #f5c800;
+      color: #111;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      margin-bottom: 1.5rem;
+    }
+
+    .page-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 6vw, 64px);
+      letter-spacing: 2px;
+      color: #f5f5f5;
+    }
+
+    .page-title .accent { color: #f5c800; }
+
+    .content-wrapper {
+      flex: 1;
+      padding: 4rem 2.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .memorial-card {
+      background: #111;
+      border: 4px solid #111;
+      max-width: 600px;
+      width: 100%;
+      padding: 2.5rem;
+      text-align: center;
+      box-shadow: 12px 12px 0px rgba(17, 17, 17, 0.2);
+    }
+
+    .memorial-dates {
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+      color: #f5c800;
+      letter-spacing: 3px;
+      margin-bottom: 1.5rem;
+    }
+
+    .memorial-text {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.8;
+      color: #ccc;
+      margin-bottom: 1rem;
+    }
+
+    .memorial-text:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #111;
+      margin-bottom: 1.5rem;
+      font-weight: bold;
+      width: 100%;
+      text-align: center;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .social-btn {
+      display: inline-block;
+      background: #111;
+      color: #f5f5f5;
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding: 1.25rem 2.5rem;
+      text-decoration: none;
+      border: 2px solid #111;
+      transition: all 0.15s;
+    }
+
+    .social-btn:hover {
+      background: #f5c800;
+      color: #111;
+      transform: translate(-4px, -4px);
+      box-shadow: 6px 6px 0px #111;
+    }
+
+    footer {
+      background: #111;
+      border-top: 4px solid #f5c800;
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 4px;
+      color: #f5c800;
+    }
+
+    .footer-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #444;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+  <div class="site">
+    
+    <nav>
+      <a href="/" class="logo">ADCIUM</a>
+      <ul class="nav-links">
+        <li><a href="/music">Music</a></li>
+        <li><a href="/videos">Videos</a></li>
+        <li><a href="/gallery">Gallery</a></li>
+        <li><a href="/games">Games</a></li>
+        <li><a href="/people_i_like">People I Like</a></li>
+        <li><a href="/about">About</a></li>
+      </ul>
+    </nav>
+
+    <div class="checker-stripe"></div>
+
+    <div class="page-header">
+      <div class="badge">PJJER</div>
+      <h1 class="page-title"><span class="accent">albertgobanned</span></h1>
+    </div>
+
+    <div class="content-wrapper">
+      
+      <div class="memorial-card">
+        <div class="memorial-dates">We had a debate over english one time. I was wrong but it was because of the way our fucking langauge is phonetically written 🪬</div>
+        
+        <p class="memorial-text">"Quote: "Pixelmonfat"</p>
+        <p class="memorial-text">Birthdate: 12/8/1834</p>
+        <p class="memorial-text">Blood: AB+</p>
+        <p class="memorial-text">Favorite Game: Limbus Company</p>
+        <p class="memorial-text">Favorite Song: Tiki Phonk 💀 🚨 🔥</p>
+      </div>
+
+      <p class="section-label" style="margin-top: 4rem;">Socials</p>
+      <div class="social-links">
+        <a href="https://discord.com/users/795061788772270153" target="_blank" class="social-btn">Discord ↗</a>
+        <a href="https://www.roblox.com/users/1206133987/profile" target="_blank" class="social-btn">Roblox ↗</a>
+      </div>
+
+    </div>
+
+    <footer>
+      <div class="footer-logo">ADCIUM</div>
+      <p class="footer-text">adcium.com &nbsp;·&nbsp; all rights reserved</p>
+    </footer>
+
+  </div>
+</body>
+</html>

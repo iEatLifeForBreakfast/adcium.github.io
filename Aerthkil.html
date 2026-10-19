@@ -14,7 +14,9 @@
       font-family: 'DM Sans', sans-serif;
       color: #111;
       display: flex;
-      flex-direction: column; 
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
     }
 
     nav {
@@ -60,6 +62,58 @@
       background-position: 0 0, 22px 22px;
       background-size: 44px 44px;
       background-color: #fff;
+    }
+
+    #haunted-zone {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    #spooky-under-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+      overflow: hidden;
+    }
+
+    #caution-overlay-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    #caution-overlay-layer img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      display: block;
+    }
+
+    .spooky-random-item {
+      position: absolute;
+      max-width: 220px;
+      max-height: 220px;
+      pointer-events: none;
+    }
+
+    .anubis-random-item {
+      position: fixed;
+      max-width: 220px;
+      max-height: 220px;
+      pointer-events: none;
+      z-index: 15;
     }
 
     .page-header {
@@ -212,29 +266,37 @@
 
     <div class="checker-stripe"></div>
 
-    <div class="page-header">
-      <div class="badge">PJJER</div>
-      <h1 class="page-title"><span class="accent">Aerthkil</span></h1>
-    </div>
+    <div id="haunted-zone">
+      <div class="page-header">
+        <div class="badge">PJJER</div>
+        <h1 class="page-title"><span class="accent">Aerthkil</span></h1>
+      </div>
 
-    <div class="content-wrapper">
-      
-      <div class="memorial-card">
-        <div class="memorial-dates">A person who is constantly sending gifs and videos</div>
+      <div class="content-wrapper">
         
-        <p class="memorial-text">"Quote: "Anubis is the STRONGEST stand"</p>
-        <p class="memorial-text">Birthdate: May 24th 2007</p>
-        <p class="memorial-text">Blood: B+</p>
-        <p class="memorial-text">Favorite Game: Warframe</p>
-        <p class="memorial-text">Favorite Song: In a dream by rockell</p>
+        <div class="memorial-card">
+          <div class="memorial-dates">A person who is constantly sending gifs and videos</div>
+          
+          <p class="memorial-text">"Quote: "Akemura soga was right"</p>
+          <p class="memorial-text">Birthdate: May 24th</p>
+          <p class="memorial-text">Blood: B+</p>
+          <p class="memorial-text">Favorite Game: Warframe</p>
+          <p class="memorial-text">Favorite Song: In a dream by rockell</p>
+        </div>
+
+        <p class="section-label" style="margin-top: 4rem;">Socials</p>
+        <div class="social-links">
+          <a href="https://discord.com/users/356968897074692107" target="_blank" class="social-btn">Discord ↗</a>
+          <a href="https://www.roblox.com/users/177173341/profile" target="_blank" class="social-btn">Roblox ↗</a>
+        </div>
+
       </div>
 
-      <p class="section-label" style="margin-top: 4rem;">Socials</p>
-      <div class="social-links">
-        <a href="https://discord.com/users/356968897074692107" target="_blank" class="social-btn">Discord ↗</a>
-        <a href="https://www.roblox.com/users/177173341/profile" target="_blank" class="social-btn">Roblox ↗</a>
-      </div>
+      <div id="spooky-under-layer"></div>
 
+      <div id="caution-overlay-layer">
+        <img src="/caution_tape/caution_tape.png" alt="">
+      </div>
     </div>
 
     <footer>
@@ -243,5 +305,162 @@
     </footer>
 
   </div>
+
+  <script>
+    const SPOOKY_VISUALS = [
+      "/spooky/eye.gif"
+    ];
+
+    const SPOOKY_AUDIO = [
+      "/spooky/crying.wave",
+      "/spooky/minecraft_cave.mp3"
+    ];
+
+    const ANUBIS_IMAGE = "/aerthkil_anubis/anubis.png";
+
+    const MIN_WAIT_SECONDS = 4;
+    const MAX_WAIT_SECONDS = 12;
+    const VISUAL_DURATION_MS = 3000;
+    const IDLE_TIME_MS = 5000;
+    const ANUBIS_DURATION_MS = 2500;
+
+    (function () {
+      const underLayer = document.getElementById("spooky-under-layer");
+      let idleTimer = null;
+      let anubisCycleTimer = null;
+      let anubisHideTimer = null;
+      let currentAnubis = null;
+      let isIdle = false;
+
+      function randomBetween(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      function randomItem(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+      }
+
+      function triggerRandomVisual() {
+        if (!underLayer || SPOOKY_VISUALS.length === 0) return;
+
+        const file = randomItem(SPOOKY_VISUALS);
+        const img = document.createElement("img");
+        img.src = file;
+        img.className = "spooky-random-item";
+
+        const maxLeft = Math.max(0, underLayer.clientWidth - 220);
+        const maxTop = Math.max(0, underLayer.clientHeight - 220);
+        img.style.left = Math.floor(Math.random() * maxLeft) + "px";
+        img.style.top = Math.floor(Math.random() * maxTop) + "px";
+
+        underLayer.appendChild(img);
+
+        setTimeout(() => {
+          if (img.parentNode) img.remove();
+        }, VISUAL_DURATION_MS);
+      }
+
+      function triggerRandomAudio() {
+        if (SPOOKY_AUDIO.length === 0) return;
+
+        const file = randomItem(SPOOKY_AUDIO);
+        const audio = new Audio(file);
+        audio.volume = 0.7;
+
+        audio.onerror = () => {
+          if (file.endsWith(".wave")) {
+            audio.src = file.replace(".wave", ".wav");
+            audio.play().catch(() => {});
+          }
+        };
+
+        audio.play().catch(() => {});
+      }
+
+      function scheduleNextHaunt() {
+        const waitMs = randomBetween(MIN_WAIT_SECONDS * 1000, MAX_WAIT_SECONDS * 1000);
+        setTimeout(() => {
+          const roll = Math.random();
+          if (roll < 0.45) {
+            triggerRandomVisual();
+            triggerRandomAudio();
+          } else if (roll < 0.8) {
+            triggerRandomVisual();
+          } else {
+            triggerRandomAudio();
+          }
+          scheduleNextHaunt();
+        }, waitMs);
+      }
+
+      function removeAnubis() {
+        if (currentAnubis) {
+          currentAnubis.remove();
+          currentAnubis = null;
+        }
+        if (anubisHideTimer) {
+          clearTimeout(anubisHideTimer);
+          anubisHideTimer = null;
+        }
+        if (anubisCycleTimer) {
+          clearTimeout(anubisCycleTimer);
+          anubisCycleTimer = null;
+        }
+      }
+
+      function spawnAnubis() {
+        if (!isIdle) return;
+        removeAnubis();
+
+        const img = document.createElement("img");
+        img.src = ANUBIS_IMAGE;
+        img.className = "anubis-random-item";
+
+        const maxLeft = Math.max(0, window.innerWidth - 220);
+        const maxTop = Math.max(0, window.innerHeight - 220);
+        img.style.left = Math.floor(Math.random() * maxLeft) + "px";
+        img.style.top = Math.floor(Math.random() * maxTop) + "px";
+
+        document.body.appendChild(img);
+        currentAnubis = img;
+
+        anubisHideTimer = setTimeout(() => {
+          if (currentAnubis) {
+            currentAnubis.remove();
+            currentAnubis = null;
+          }
+          if (isIdle) {
+            anubisCycleTimer = setTimeout(spawnAnubis, randomBetween(1500, 4000));
+          }
+        }, ANUBIS_DURATION_MS);
+      }
+
+      function resetIdleTimer() {
+        isIdle = false;
+        removeAnubis();
+        if (idleTimer) clearTimeout(idleTimer);
+        idleTimer = setTimeout(() => {
+          isIdle = true;
+          spawnAnubis();
+        }, IDLE_TIME_MS);
+      }
+
+      window.addEventListener("mousemove", resetIdleTimer);
+      resetIdleTimer();
+
+      let unlocked = false;
+      function unlockAudio() {
+        if (unlocked) return;
+        unlocked = true;
+        const silent = new Audio();
+        silent.play().catch(() => {});
+      }
+
+      window.addEventListener("click", unlockAudio, { once: true });
+      window.addEventListener("keydown", unlockAudio, { once: true });
+
+      scheduleNextHaunt();
+    })();
+  </script>
 </body>
 </html>
